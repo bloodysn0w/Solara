@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="login-page-root">
+<html lang="zh-TW" class="login-page-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>登录 - Solara</title>
+  <title>登錄 - Solara</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
@@ -483,24 +483,24 @@
           <img src="/favicon.svg" alt="">
         </div>
         <div class="title-group">
-          <h1 class="login-title">Solara</h1>
-          <p class="login-desc">访问受到保护</p>
+          <h1 class="login-title">Maplesakura</h1>
+          <p class="login-desc">訪問受到保護</p>
         </div>
       </header>
       <form class="login-form" id="login-form">
         <div class="field">
-          <label for="password" class="field-label">访问口令</label>
+          <label for="password" class="field-label">訪問口令</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-lock" aria-hidden="true"></i>
-            <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password" required
+            <input type="password" id="password" placeholder="請輸入密碼" autocomplete="current-password" required
               oninput="this.value = this.value.replace(/[^\x00-\x7F]/g, '')">
           </div>
         </div>
-        <p class="login-hint">只有输入了正确口令的成员才能继续访问内容。</p>
-        <button type="submit">进入 Solara</button>
+        <p class="login-hint">只有輸入了正確口令的成員才能繼續訪問內容。</p>
+        <button type="submit">進入 Maplesakura</button>
       </form>
       <footer class="login-footer" aria-live="polite">
-        <span class="status-message"><span class="status-dot" aria-hidden="true"></span>安全状态：受保护</span>
+        <span class="status-message"><span class="status-dot" aria-hidden="true"></span>安全狀態：受保護</span>
       </footer>
     </section>
   </main>
@@ -546,10 +546,10 @@
           window.location.href = "/";
           return;
         }
-        showNotification("密码错误，请重试", "error");
+        showNotification("密碼錯誤，請重試", "error");
       } catch (error) {
         console.error(error);
-        showNotification("登录出错，请稍后再试", "error");
+        showNotification("登錄出錯，請稍後再試", "error");
       }
     });
   </script>
