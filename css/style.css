@@ -135,7 +135,7 @@ body.background-transitioning .background-stage__layer--transition {
     position: relative;
 }
 
-/* 搜索模式下的容器布局 */
+/* 搜尋模式下的容器佈局 */
 .container.search-mode {
     grid-template-areas: 
         "header header header"
@@ -163,7 +163,7 @@ body.background-transitioning .background-stage__layer--transition {
     font-style: italic; 
 }
 
-/* 搜索区域样式 - 增强动效 */
+/* 搜尋區域樣式 - 增強動效 */
 .search-area {
     grid-area: search;
     background: var(--component-bg);
@@ -184,7 +184,7 @@ body.background-transitioning .background-stage__layer--transition {
     box-sizing: border-box;
 }
 
-/* 搜索模式下的搜索区域 */
+/* 搜尋模式下的搜尋區域 */
 .container.search-mode .search-area {
     background: var(--component-bg);
     backdrop-filter: blur(20px);
@@ -363,7 +363,7 @@ body.background-transitioning .background-stage__layer--transition {
     transform: none;
 }
 
-/* 搜索结果区域 - 增强动效 */
+/* 搜尋結果區域 - 增強動效 */
 .search-results {
     max-height: 0;
     overflow: hidden;
@@ -467,7 +467,7 @@ body.background-transitioning .background-stage__layer--transition {
     min-height: 0;
 }
 
-/* 搜索模式下的搜索结果 */
+/* 搜尋模式下的搜尋結果 */
 .container.search-mode .search-results {
     max-height: none;
     height: 100%;
@@ -721,7 +721,7 @@ body.background-transitioning .background-stage__layer--transition {
     font-size: 14px;
 }
 
-/* 主要内容区域 - 播放模式显示，搜索模式隐藏 */
+/* 主要內容區域 - 播放模式顯示，搜尋模式隱藏 */
 .main-content {
     display: contents;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -731,7 +731,7 @@ body.background-transitioning .background-stage__layer--transition {
     display: none;
 }
 
-/* 音乐封面区域 */
+/* 音樂封面區域 */
 .cover-area {
     grid-area: cover;
     background: var(--component-bg);
@@ -838,7 +838,7 @@ body.background-transitioning .background-stage__layer--transition {
     text-overflow: ellipsis;
 }
 
-/* 播放列表和歌词区域 */
+/* 播放列表和歌詞區域 */
 .playlist, .lyrics {
     background: var(--component-bg);
     border-radius: 16px;
@@ -1032,15 +1032,15 @@ html.mobile-view .playlist-header .playlist-action-btn {
     height: 36px;
 }
 
-/* 当播放列表有内容时，调整布局 */
+/* 當播放列表有內容時，調整佈局 */
 .playlist:not(.empty) {
     align-items: stretch;
     justify-content: flex-start;
 }
 
-/* 播放列表空状态的提示文本 */
+/* 播放列表空狀態的提示文本 */
 .playlist.empty::before {
-    content: "点击\"探索雷达\"加载在线音乐";
+    content: "點擊\"探索雷達\"載入線上音樂";
     color: var(--text-secondary-color);
     font-style: italic;
     opacity: 0.7;
@@ -1134,13 +1134,13 @@ html.mobile-view .playlist-header .playlist-action-btn {
     color: var(--primary-color);
 }
 
-/* 使收藏列表与播放列表共享相同的定位和内边距 */
+/* 使收藏列表與播放列表共享相同的定位和內邊距 */
 .playlist.favorites {
     margin-top: 0;
     padding-top: 72px;
 }
 
-/* 切换时隐藏非激活列表的标题和操作按钮 */
+/* 切換時隱藏非激活列表的標題和操作按鈕 */
 .playlist:not(.active) .playlist-header {
     display: none;
 }
@@ -1473,7 +1473,7 @@ html.mobile-view .favorites .favorite-item-action--download {
 html.mobile-view .favorites .favorite-item-action--remove {
     right: 12px;
 }
-/* 动态质量菜单样式 */
+/* 動態質量菜單樣式 */
 .dynamic-quality-menu {
     background: #ffffff;
     border: 1px solid var(--border-color);
@@ -1519,7 +1519,7 @@ html.mobile-view .favorites .favorite-item-action--remove {
     overscroll-behavior: contain;
 }
 
-/* 当歌词容器有内容时的样式 */
+/* 當歌詞容器有內容時的樣式 */
 .lyrics:not(.empty) .lyrics-scroll {
     align-items: flex-start;
     justify-content: flex-start;
@@ -1538,13 +1538,13 @@ html.mobile-view .favorites .favorite-item-action--remove {
     max-width: 100%;
 }
 
-/* 当歌词容器只有默认文本时的样式 */
+/* 當歌詞容器只有預設文本時的樣式 */
 .lyrics.empty[data-placeholder="default"] .lyrics-content {
     display: none;
 }
 
 .lyrics.empty[data-placeholder="default"] .lyrics-scroll::before {
-    content: "歌词将在此处同步显示";
+    content: "歌詞將在此處同步顯示";
     color: var(--text-secondary-color);
     font-style: italic;
     opacity: 0.7;
@@ -1562,7 +1562,7 @@ html.mobile-view .favorites .favorite-item-action--remove {
     box-shadow: 0 4px 15px var(--lyrics-highlight-shadow); 
 }
 
-/* 控制区域 */
+/* 控制區域 */
 .controls {
     grid-area: controls;
     display: grid;
@@ -1890,7 +1890,7 @@ input[type="range"]:active::-moz-range-thumb {
     pointer-events: none;
 }
 
-/* 播放模式控制按钮 */
+/* 播放模式控制按鈕 */
 .play-mode-controls {
     display: flex;
     gap: 10px;
@@ -1924,7 +1924,7 @@ input[type="range"]:active::-moz-range-thumb {
     color: white;
 }
 
-/* 下载质量选择菜单 - 修复层级和显示问题 */
+/* 下載品質選擇選單 - 修復層級和顯示問題 */
 .quality-menu {
     position: absolute;
     top: calc(100% + 10px);
@@ -1949,7 +1949,7 @@ input[type="range"]:active::-moz-range-thumb {
     box-shadow: 0 12px 34px rgba(0, 0, 0, 0.6);
 }
 
-/* 确保搜索结果项在质量菜单显示时不会遮挡 */
+/* 確保搜尋結果項在品質選單顯示時不會遮擋 */
 .search-result-item {
     position: relative;
     z-index: 1;
@@ -1959,7 +1959,7 @@ input[type="range"]:active::-moz-range-thumb {
     z-index: 1000000;
 }
 
-/* 为不支持 :has() 的浏览器提供备用方案 */
+/* 為不支援 :has() 的瀏覽器提供備用方案 */
 .search-result-item.menu-active {
     z-index: 1000000;
 }
@@ -1971,7 +1971,7 @@ input[type="range"]:active::-moz-range-thumb {
     pointer-events: auto;
 }
 
-/* 加载更多按钮 - 增强样式 */
+/* 載入更多按鈕 - 增強樣式 */
 .load-more-btn {
     width: 100%;
     background: var(--component-bg);
@@ -2009,7 +2009,7 @@ input[type="range"]:active::-moz-range-thumb {
     box-shadow: none;
 }
 
-/* 调试信息样式 */
+/* 調試資訊樣式 */
 .debug-info {
     position: fixed;
     top: 10px;
@@ -2116,7 +2116,7 @@ input[type="range"]:active::-moz-range-thumb {
     transform: scale(1) rotate(0deg);
 }
 
-/* 通知样式 */
+/* 通知樣式 */
 .notification {
     position: fixed;
     top: 20px;
@@ -2143,7 +2143,7 @@ input[type="range"]:active::-moz-range-thumb {
     background: #f39c12;
 }
 
-/* 视图切换按钮 - 桌面端隐藏 */
+/* 視圖切換按鈕 - 桌面端隱藏 */
 .view-toggle {
     display: none;
 }
