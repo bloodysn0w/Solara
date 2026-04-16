@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -118,9 +118,9 @@
         </div>
         <div class="header">
             <h1>Solara</h1>
-            <div class="warning">Made by Wet Dream Boy，免费API来自GD音乐台(music.gdstudio.xyz)，仅供学习交流使用，请支持正版音乐奥！</div>
+            <div class="warning">Made by Wet Dream Boy，免費API來自GD音樂台（music.gdstudio.xyz），僅供學習交流使用，請支持正版音樂奧！</div>
             <div class="theme-switch-wrapper">
-                <button id="themeToggleButton" class="theme-toggle-button" type="button" aria-label="切换深浅色模式">
+                <button id="themeToggleButton" class="theme-toggle-button" type="button" aria-label="切換深淺色模式">
                     <i class="fas fa-sun theme-icon theme-icon--sun" aria-hidden="true"></i>
                     <i class="fas fa-moon theme-icon theme-icon--moon" aria-hidden="true"></i>
                 </button>
@@ -128,21 +128,21 @@
         </div>
 
         <div class="search-area" id="searchArea">
-            <button type="button" class="mobile-close-btn" id="mobileSearchClose" aria-label="关闭搜索">
+            <button type="button" class="mobile-close-btn" id="mobileSearchClose" aria-label="關閉搜尋">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </button>
             <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="搜索歌曲、歌手或专辑...">
+                <input type="text" id="searchInput" class="search-input" placeholder="搜尋歌曲、歌手或專輯...">
                 <div class="source-select-wrapper" id="sourceSelectWrapper">
                     <button id="sourceSelectButton" class="source-select-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-                        <span id="sourceSelectLabel">网易云音乐</span>
+                        <span id="sourceSelectLabel">網易雲音樂</span>
                         <i class="fas fa-chevron-down caret-icon" aria-hidden="true"></i>
                     </button>
                     <div id="sourceMenu" class="source-menu" role="listbox" aria-labelledby="sourceSelectButton"></div>
                 </div>
                 <button id="searchBtn" class="search-btn">
                     <i class="fas fa-search"></i>
-                    <span>搜索</span>
+                    <span>搜尋</span>
                 </button>
             </div>
             <div id="searchResults" class="search-results">
@@ -157,16 +157,16 @@
                             aria-expanded="false"
                         >
                             <i class="fas fa-file-import" aria-hidden="true"></i>
-                            <span class="import-selected-label">导入已选</span>
+                            <span class="import-selected-label">導入已選</span>
                             <span id="importSelectedCount" class="import-selected-count" aria-hidden="true"></span>
                             <i class="fas fa-caret-down import-dropdown-caret" aria-hidden="true"></i>
                         </button>
                         <div class="import-dropdown-menu" id="importSelectedMenu" role="menu" hidden>
                             <button id="importToPlaylist" class="import-dropdown-item" type="button" role="menuitem">
-                                导入到播放列表
+                                匯入到播放列表
                             </button>
                             <button id="importToFavorites" class="import-dropdown-item" type="button" role="menuitem">
-                                导入到收藏列表
+                                匯入到收藏列表
                             </button>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                 <div class="mobile-inline-lyrics" id="mobileInlineLyrics" aria-hidden="true">
                     <div class="mobile-inline-lyrics__hint">
                         <i class="fas fa-arrow-left"></i>
-                        轻触返回封面
+                        輕觸返回封面
                     </div>
                     <div class="mobile-inline-lyrics__scroll" id="mobileInlineLyricsScroll">
                         <div class="mobile-inline-lyrics__content" id="mobileInlineLyricsContent"></div>
@@ -197,20 +197,20 @@
                 </div>
                 <div class="current-song-info">
                     <div class="current-song-title-row">
-                        <span class="current-song-title" id="currentSongTitle">选择一首歌曲开始播放</span>
+                        <span class="current-song-title" id="currentSongTitle">選擇一首歌曲開始播放</span>
                         <button
                             class="favorite-toggle current-favorite-btn"
                             id="currentFavoriteToggle"
                             type="button"
-                            aria-label="收藏当前歌曲"
-                            title="收藏当前歌曲"
+                            aria-label="收藏當前歌曲"
+                            title="收藏當前歌曲"
                         >
                             <i class="far fa-heart" aria-hidden="true"></i>
                         </button>
                     </div>
-                    <div class="current-song-artist" id="currentSongArtist">未知艺术家</div>
+                    <div class="current-song-artist" id="currentSongArtist">未知藝術家</div>
                     <button class="mobile-quality-chip" id="mobileQualityToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-                        <span id="mobileQualityLabel">极高音质</span>
+                        <span id="mobileQualityLabel">極高音質</span>
                         <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -247,8 +247,8 @@
                                 id="mobileImportPlaylistBtn"
                                 class="mobile-panel-action-btn"
                                 type="button"
-                                aria-label="导入播放列表"
-                                title="导入播放列表"
+                                aria-label="匯入播放清單"
+                                title="匯入播放清單"
                             >
                                 <i class="fas fa-file-import" aria-hidden="true"></i>
                             </button>
@@ -256,8 +256,8 @@
                                 id="mobileExportPlaylistBtn"
                                 class="mobile-panel-action-btn"
                                 type="button"
-                                aria-label="导出播放列表"
-                                title="导出播放列表"
+                                aria-label="匯出播放清單"
+                                title="匯出播放清單"
                                 aria-disabled="true"
                                 disabled
                             >
@@ -290,8 +290,8 @@
                                 id="mobileImportFavoritesBtn"
                                 class="mobile-panel-action-btn"
                                 type="button"
-                                aria-label="导入收藏列表"
-                                title="导入收藏列表"
+                                aria-label="導入收藏列表"
+                                title="導入收藏列表"
                             >
                                 <i class="fas fa-file-import" aria-hidden="true"></i>
                             </button>
@@ -299,8 +299,8 @@
                                 id="mobileExportFavoritesBtn"
                                 class="mobile-panel-action-btn"
                                 type="button"
-                                aria-label="导出收藏列表"
-                                title="导出收藏列表"
+                                aria-label="匯出收藏列表"
+                                title="匯出收藏列表"
                                 aria-disabled="true"
                                 disabled
                             >
@@ -354,8 +354,8 @@
                                 class="playlist-action-btn playlist-action-btn--import"
                                 id="importPlaylistBtn"
                                 type="button"
-                                title="导入播放列表"
-                                aria-label="导入播放列表"
+                                title="導入播放清單"
+                                aria-label="導入播放清單"
                             >
                                 <i class="fas fa-file-import" aria-hidden="true"></i>
                             </button>
@@ -363,8 +363,8 @@
                                 class="playlist-action-btn playlist-action-btn--export"
                                 id="exportPlaylistBtn"
                                 type="button"
-                                title="导出播放列表"
-                                aria-label="导出播放列表"
+                                title="匯出播放清單"
+                                aria-label="匯出播放清單"
                             >
                                 <i class="fas fa-file-export" aria-hidden="true"></i>
                             </button>
@@ -373,8 +373,8 @@
                                 id="clearPlaylistBtn"
                                 type="button"
                                 onclick="clearPlaylist()"
-                                title="清空播放列表"
-                                aria-label="清空播放列表"
+                                title="清空播放清單"
+                                aria-label="清空播放清單"
                             >
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                             </button>
@@ -394,7 +394,7 @@
                                 role="tab"
                                 aria-selected="true"
                                 data-target="playlist"
-                            >播放列表</button>
+                            >播放清單</button>
                             <button
                                 id="favoritesTabSecondary"
                                 class="playlist-tab"
@@ -409,8 +409,8 @@
                                 class="playlist-action-btn"
                                 id="addAllFavoritesBtn"
                                 type="button"
-                                title="全部添加到播放列表"
-                                aria-label="全部添加到播放列表"
+                                title="全部添加到播放清單"
+                                aria-label="全部添加到播放清單"
                             >
                                 <i class="fas fa-plus-circle" aria-hidden="true"></i>
                             </button>
@@ -470,8 +470,8 @@
                 <button class="transport-button transport-button--prev" onclick="playPrevious()" type="button" title="上一曲"><i class="fas fa-backward-step"></i></button>
                 <button class="transport-button transport-button--play" id="playPauseBtn" type="button" title="播放 / 暂停"><i class="fas fa-play"></i></button>
                 <button class="transport-button transport-button--next" onclick="playNext()" type="button" title="下一曲"><i class="fas fa-forward-step"></i></button>
-                <button class="transport-button transport-button--queue" id="mobileQueueToggle" type="button" title="打开播放列表" aria-label="打开播放列表"><i class="fas fa-bars"></i></button>
-                <button class="transport-button transport-button--shuffle" id="shuffleToggleBtn" type="button" title="随机播放" aria-label="切换随机播放"><i class="fas fa-shuffle shuffle-icon shuffle-icon--off"></i></button>
+                <button class="transport-button transport-button--queue" id="mobileQueueToggle" type="button" title="打開播放清單" aria-label="打開播放清單"><i class="fas fa-bars"></i></button>
+                <button class="transport-button transport-button--shuffle" id="shuffleToggleBtn" type="button" title="隨機播放" aria-label="切換隨機播放"><i class="fas fa-shuffle shuffle-icon shuffle-icon--off"></i></button>
             </div>
             <div class="progress-container">
                 <span id="currentTimeDisplay">00:00</span>
@@ -482,7 +482,7 @@
                 <div class="audio-tools">
                     <div class="player-quality">
                         <button id="qualityToggle" class="player-quality-btn" type="button">
-                            <span id="qualityLabel">极高音质</span>
+                            <span id="qualityLabel">極高音質</span>
                         </button>
                         <div id="playerQualityMenu" class="player-quality-menu"></div>
                     </div>
@@ -491,8 +491,8 @@
                         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
                     </div>
                 </div>
-                <button id="loadOnlineBtn" title="聚合所有雷达，探索新音乐">
-                    <span class="btn-text"><i class="fas fa-satellite-dish"></i> 探索雷达</span>
+                <button id="loadOnlineBtn" title="聚合所有雷達，探索新音樂">
+                    <span class="btn-text"><i class="fas fa-satellite-dish"></i> 探索雷達</span>
                     <span class="loader" style="display: none;"></span>
                 </button>
             </div>
@@ -506,7 +506,7 @@
 <!-- 通知容器 -->
 <div id="notification" class="notification"></div>
 
-<!-- 调试信息容器 -->
+<!-- 偵錯資訊容器 -->
 <div id="debugInfo" class="debug-info"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
