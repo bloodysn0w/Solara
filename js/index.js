@@ -410,7 +410,7 @@ function createPersistentStorageClient() {
             }
             return await response.json();
         } catch (error) {
-            console.warn("获取远程存储数据失败", error);
+            console.warn("獲取遠端儲存數據失敗", error);
             return null;
         }
     };
@@ -428,7 +428,7 @@ function createPersistentStorageClient() {
             });
             return true;
         } catch (error) {
-            console.warn("写入远程存储失败", error);
+            console.warn("寫入遠端儲存失敗", error);
             return false;
         }
     };
@@ -446,7 +446,7 @@ function createPersistentStorageClient() {
             });
             return true;
         } catch (error) {
-            console.warn("删除远程存储数据失败", error);
+            console.warn("刪除遠端儲存資料失敗", error);
             return false;
         }
     };
@@ -470,7 +470,7 @@ function persistStorageItems(items) {
         return;
     }
     persistentStorage.setItems(items).catch((error) => {
-        console.warn("同步远程存储失败", error);
+        console.warn("同步遠端儲存失敗", error);
     });
 }
 
@@ -479,7 +479,7 @@ function removePersistentItems(keys = []) {
         return;
     }
     persistentStorage.removeItems(keys).catch((error) => {
-        console.warn("移除远程存储数据失败", error);
+        console.warn("移除遠端儲存資料失敗", error);
     });
 }
 
@@ -487,7 +487,7 @@ function safeGetLocalStorage(key) {
     try {
         return localStorage.getItem(key);
     } catch (error) {
-        console.warn(`读取本地存储失败: ${key}`, error);
+        console.warn(`讀取本地儲存失敗: ${key}`, error);
         return null;
     }
 }
@@ -497,7 +497,7 @@ function safeSetLocalStorage(key, value, options = {}) {
     try {
         localStorage.setItem(key, value);
     } catch (error) {
-        console.warn(`写入本地存储失败: ${key}`, error);
+        console.warn(`寫入本地儲存失敗: ${key}`, error);
     }
     if (!skipRemote && remoteSyncEnabled && shouldSyncStorageKey(key)) {
         persistStorageItems({ [key]: value });
@@ -509,7 +509,7 @@ function safeRemoveLocalStorage(key, options = {}) {
     try {
         localStorage.removeItem(key);
     } catch (error) {
-        console.warn(`移除本地存储失败: ${key}`, error);
+        console.warn(`移除本地儲存失敗: ${key}`, error);
     }
     if (!skipRemote && remoteSyncEnabled && shouldSyncStorageKey(key)) {
         removePersistentItems([key]);
@@ -522,7 +522,7 @@ function parseJSON(value, fallback) {
         const parsed = JSON.parse(value);
         return parsed;
     } catch (error) {
-        console.warn("解析本地存储 JSON 失败", error);
+        console.warn("解析本地儲存 JSON 失敗", error);
         return fallback;
     }
 }
@@ -534,7 +534,7 @@ function cloneSearchResults(results) {
     try {
         return JSON.parse(JSON.stringify(results));
     } catch (error) {
-        console.warn("复制搜索结果失败，回退到浅拷贝", error);
+        console.warn("複製搜尋結果失敗，回退到淺拷貝", error);
         return results.map((item) => {
             if (item && typeof item === "object") {
                 return { ...item };
@@ -575,7 +575,7 @@ function loadStoredPalettes() {
             }
         }
     } catch (error) {
-        console.warn("解析调色板缓存失败", error);
+        console.warn("解析調色盤快取失敗", error);
     }
 }
 
@@ -585,7 +585,7 @@ function persistPaletteCache() {
     try {
         safeSetLocalStorage(PALETTE_STORAGE_KEY, JSON.stringify(entries));
     } catch (error) {
-        console.warn("保存调色板缓存失败", error);
+        console.warn("保存調色盤快取失敗", error);
     }
 }
 
@@ -635,15 +635,15 @@ function buildAudioProxyUrl(url) {
 
         return parsedUrl.toString();
     } catch (error) {
-        console.warn("无法解析音频地址，跳过代理", error);
+        console.warn("無法解析音頻地址，跳過代理", error);
         return url;
     }
 }
 
 const SOURCE_OPTIONS = [
-    { value: "netease", label: "网易云音乐" },
-    { value: "kuwo", label: "酷我音乐" },
-    { value: "joox", label: "JOOX音乐" }
+    { value: "netease", label: "網易雲音樂" },
+    { value: "kuwo", label: "酷我音樂" },
+    { value: "joox", label: "JOOX音樂" }
 ];
 
 function normalizeSource(value) {
@@ -652,10 +652,10 @@ function normalizeSource(value) {
 }
 
 const QUALITY_OPTIONS = [
-    { value: "128", label: "标准音质", description: "128 kbps" },
-    { value: "192", label: "高品音质", description: "192 kbps" },
-    { value: "320", label: "极高音质", description: "320 kbps" },
-    { value: "999", label: "无损音质", description: "FLAC" }
+    { value: "128", label: "標準音質", description: "128 kbps" },
+    { value: "192", label: "高品音質", description: "192 kbps" },
+    { value: "320", label: "極高音質", description: "320 kbps" },
+    { value: "999", label: "無損音質", description: "FLAC" }
 ];
 
 function normalizeQuality(value) {
@@ -760,7 +760,7 @@ const savedCurrentPlaylist = (() => {
     return playlists.includes(stored) ? stored : "playlist";
 })();
 
-// API配置 - 修复API地址和请求方式
+// API配置 - 修復API地址和請求方式
 const API = {
     baseUrl: "/proxy",
 
@@ -798,11 +798,11 @@ const API = {
         const url = `${API.baseUrl}?types=search&source=${source}&name=${encodeURIComponent(keyword)}&count=${count}&pages=${page}&s=${signature}`;
 
         try {
-            debugLog(`API请求: ${url}`);
+            debugLog(`API請求: ${url}`);
             const data = await API.fetchJson(url);
-            debugLog(`API响应: ${JSON.stringify(data).substring(0, 200)}...`);
+            debugLog(`API響應: ${JSON.stringify(data).substring(0, 200)}...`);
 
-            if (!Array.isArray(data)) throw new Error("搜索结果格式错误");
+            if (!Array.isArray(data)) throw new Error("搜尋結果格式錯誤");
 
             return data.map(song => ({
                 id: song.id,
@@ -815,7 +815,7 @@ const API = {
                 source: song.source,
             }));
         } catch (error) {
-            debugLog(`API错误: ${error.message}`);
+            debugLog(`API錯誤: ${error.message}`);
             throw error;
         }
     },
@@ -901,14 +901,14 @@ const state = {
     currentLyricLine: -1,
     currentPlaylist: savedCurrentPlaylist, // 'online', 'search', or 'playlist'
     searchPage: savedLastSearchState?.page || 1,
-    searchKeyword: savedLastSearchState?.keyword || "", // 确保这里有初始值
+    searchKeyword: savedLastSearchState?.keyword || "", // 確保這裡有初始值
     searchSource: savedLastSearchState ? savedLastSearchState.source : savedSearchSource,
     hasMoreResults: typeof savedLastSearchState?.hasMore === "boolean" ? savedLastSearchState.hasMore : true,
     currentSong: savedCurrentSong,
     currentArtworkUrl: null,
     debugMode: false,
-    isSearchMode: false, // 新增：搜索模式状态
-    playlistSongs: savedPlaylistSongs, // 新增：统一播放列表
+    isSearchMode: false, // 新增：搜尋模式狀態
+    playlistSongs: savedPlaylistSongs, // 新增：統一播放列表
     playMode: savedPlayMode, // 新增：播放模式 'list', 'single', 'random'
     playlistLastNonRandomMode: savedPlayMode === "random" ? "list" : savedPlayMode,
     favoriteSongs: savedFavoriteSongs,
@@ -926,8 +926,8 @@ const state = {
     isSeeking: false,
     qualityMenuOpen: false,
     sourceMenuOpen: false,
-    userScrolledLyrics: false, // 新增：用户是否手动滚动歌词
-    lyricsScrollTimeout: null, // 新增：歌词滚动超时
+    userScrolledLyrics: false, // 新增：用戶是否手動滾動歌詞
+    lyricsScrollTimeout: null, // 新增：歌詞滾動超時
     themeDefaultsCaptured: false,
     dynamicPalette: null,
     currentPaletteImage: null,
@@ -968,7 +968,7 @@ async function bootstrapPersistentStorage() {
         }
         applyPersistentSnapshotFromRemote(snapshot.data);
     } catch (error) {
-        console.warn("加载远程存储失败", error);
+        console.warn("載入遠端儲存失敗", error);
     } finally {
         remoteSyncEnabled = true;
     }
@@ -1125,7 +1125,7 @@ function applyPersistentSnapshotFromRemote(data) {
             state.currentSong = restoredSong;
             updatePlaylistHighlight();
             updateCurrentSongInfo(restoredSong).catch((error) => {
-                console.error("恢复远程歌曲信息失败:", error);
+                console.error("恢復遠端歌曲資訊失敗:", error);
             });
         }
     } else if (dom.playlist) {
@@ -1171,7 +1171,7 @@ bootstrapPersistentStorage();
                 window.__SOLARA_UPDATE_MEDIA_METADATA();
                 refreshed = true;
             } catch (error) {
-                console.warn('刷新媒体信息失败:', error);
+                console.warn('刷新媒體資訊失敗:', error);
             }
         }
         if (!refreshed) {
@@ -1204,10 +1204,10 @@ bootstrapPersistentStorage();
     }
 
     function getArtworkList(url) {
-        // iOS/Safari 建议多尺寸封面；你的 API 已有 pic_id -> pic url（300），这里做兜底多尺寸
-        // 注意：尽量提供 https 链接；你的项目里已有 preferHttpsUrl/buildAudioProxyUrl 工具函数
+        // iOS/Safari 建議多尺寸封面；你的API已有 pic_id -> pic url（300），這裡做兜底多尺寸
+        // 注意：盡量提供 https 連結；你的項目裡已有 preferHttpsUrl/buildAudioProxyUrl 工具函數
         const src = (typeof preferHttpsUrl === 'function') ? preferHttpsUrl(url) : (url || '');
-        // 如果没有封面，用默认封面兜底
+        // 如果沒有封面，用默認封面作為備選
         const fallback = '/favicon.png';
         const baseSrc = src || fallback;
         const base = toAbsoluteUrl(baseSrc);
@@ -1225,7 +1225,7 @@ bootstrapPersistentStorage();
     }
 
     function updateMediaMetadata() {
-        // 依赖现有全局 state.currentSong；已在项目中使用 localStorage 保存/恢复。:contentReference[oaicite:7]{index=7}
+        // 依賴現有全局 state.currentSong；已在項目中使用 localStorage 保存/恢復。:contentReference[oaicite:7]{index=7}
         const song = state.currentSong || {};
         const title = song.name || dom.currentSongTitle?.textContent || 'Solara';
         const artist = song.artist || dom.currentSongArtist?.textContent || '';
@@ -1239,7 +1239,7 @@ bootstrapPersistentStorage();
                 artwork: getArtworkList(artworkUrl)
             });
         } catch (e) {
-            // 某些旧 iOS 可能对 artwork 尺寸挑剔，失败时用最小配置重试
+            // 某些舊 iOS 可能對 artwork 尺寸挑剔，失敗時用最小配置重試
             try {
                 navigator.mediaSession.metadata = new MediaMetadata({ title, artist });
             } catch (_) {}
@@ -1247,7 +1247,7 @@ bootstrapPersistentStorage();
     }
 
     function updatePositionState() {
-        // iOS 15+ 支持 setPositionState；用于让锁屏进度条可拖动与显示
+        // iOS 15+ 支持 setPositionState；用於讓鎖屏進度條可拖動與顯示
         if (!allowLockScreenScrubbing) return;
         const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
         const position = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
@@ -1277,10 +1277,10 @@ bootstrapPersistentStorage();
         if (handlersBound) return;
         handlersBound = true;
 
-        // 播放/暂停交给 <audio> 默认行为即可
+        // 播放/暫停交給 <audio> 預設行為即可
         try {
             navigator.mediaSession.setActionHandler('previoustrack', () => {
-                // 直接复用你已有的全局函数（HTML 里也在用）:contentReference[oaicite:9]{index=9}
+                // 直接續使用你已有的全域函數（HTML裡也在用）:contentReference[oaicite:9]{index=9}
                 if (typeof window.playPrevious === 'function') {
                     const result = window.playPrevious();
                     if (result && typeof result.then === 'function') {
@@ -1305,7 +1305,7 @@ bootstrapPersistentStorage();
             navigator.mediaSession.setActionHandler('seekforward', null);
 
             if (allowLockScreenScrubbing) {
-                // 关键：让锁屏支持拖动进度到任意位置
+                // 關鍵：讓鎖屏支持拖動進度到任意位置
                 navigator.mediaSession.setActionHandler('seekto', (e) => {
                     if (!e || typeof e.seekTime !== 'number') return;
                     audio.currentTime = Math.max(0, Math.min(audio.duration || 0, e.seekTime));
@@ -1320,7 +1320,7 @@ bootstrapPersistentStorage();
                 } catch (_) {}
             }
 
-            // 可选：切换播放状态（大部分系统自己会处理）
+            // 可選：切換播放狀態（大部分系統自己會處理）
             navigator.mediaSession.setActionHandler('play', async () => {
                 try { await audio.play(); } catch(_) {}
             });
@@ -1330,7 +1330,7 @@ bootstrapPersistentStorage();
         }
     }
 
-    // 监听 audio 事件，同步锁屏信息与进度
+    // 監聽 audio 事件，同步鎖屏資訊與進度
     audio.addEventListener('loadedmetadata', () => {
         triggerMediaSessionMetadataRefresh();
         updatePositionState();
@@ -1378,7 +1378,7 @@ bootstrapPersistentStorage();
                 Promise.resolve().then(refresh);
                 return;
             } catch (error) {
-                console.warn('自动播放下一首失败:', error);
+                console.warn('自動播放下一首失敗:', error);
             }
         }
         audio[MEDIA_SESSION_ENDED_FLAG] = 'skip';
@@ -1395,15 +1395,15 @@ bootstrapPersistentStorage();
                 }
                 return;
             } catch (error) {
-                console.warn('自动播放下一首失败:', error);
+                console.warn('自動播放下一首失敗:', error);
             }
         }
         refresh();
     });
 
-    // 当你在应用内切歌（更新 state.currentSong / 封面 / 标题）时，也调用一次：
+    // 當你在應用內切歌（更新 state.currentSong / 封面 / 標題）時，也調用一次：
     // window.__SOLARA_UPDATE_MEDIA_METADATA = updateMediaMetadata;
-    // 这样在你现有的切歌逻辑里，设置完新的 audio.src 后手动调用它可立即更新锁屏封面/文案。
+    // 這樣在你現有的切歌邏輯裡，設置完新的 audio.src 後手動調用它可立即更新鎖屏封面/文案。
     if (typeof window.__SOLARA_UPDATE_MEDIA_METADATA !== 'function') {
         window.__SOLARA_UPDATE_MEDIA_METADATA = updateMediaMetadata;
     }
@@ -1814,7 +1814,7 @@ function showAlbumCoverPlaceholder() {
 function setAlbumCoverImage(url) {
     const safeUrl = toAbsoluteUrl(preferHttpsUrl(url));
     state.currentArtworkUrl = safeUrl;
-    dom.albumCover.innerHTML = `<img src="${safeUrl}" alt="专辑封面">`;
+    dom.albumCover.innerHTML = `<img src="${safeUrl}" alt="專輯封面">`;
     dom.albumCover.classList.remove("loading");
     if (typeof window.__SOLARA_UPDATE_MEDIA_METADATA === 'function') {
         window.__SOLARA_UPDATE_MEDIA_METADATA();
@@ -1837,7 +1837,7 @@ async function fetchPaletteData(imageUrl, signal) {
     try {
         payload = raw ? JSON.parse(raw) : null;
     } catch (parseError) {
-        console.warn("解析调色板响应失败:", parseError);
+        console.warn("解析調色盤響應失敗:", parseError);
     }
 
     if (!response.ok) {
@@ -1867,7 +1867,7 @@ async function updateDynamicBackground(imageUrl) {
         return;
     }
 
-    debugLog(`动态背景: 更新至新的图片 ${imageUrl}`);
+    debugLog(`動態背景：更新至新的圖片 ${imageUrl}`);
 
     if (paletteAbortController) {
         paletteAbortController.abort();
@@ -1905,8 +1905,8 @@ async function updateDynamicBackground(imageUrl) {
         if (error?.name === "AbortError") {
             return;
         }
-        console.warn("获取动态背景失败:", error);
-        debugLog(`动态背景加载失败: ${error}`);
+        console.warn("獲取動態背景失敗:", error);
+        debugLog(`動態背景載入失敗: ${error}`);
         if (requestId === paletteRequestId) {
             resetDynamicBackground();
         }
@@ -1942,7 +1942,7 @@ function saveFavoriteState(options = {}) {
     safeSetLocalStorage("favoritePlaybackTime", String(state.favoritePlaybackTime || 0), { skipRemote });
 }
 
-// 调试日志函数
+// 調試日誌函數
 function debugLog(message) {
     console.log(`[DEBUG] ${message}`);
     if (state.debugMode) {
@@ -1960,33 +1960,33 @@ function debugLog(message) {
     }
 }
 
-// 启用调试模式（按Ctrl+D）
+// 啟用調試模式（按Ctrl+D）
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key === "d") {
         e.preventDefault();
         state.debugMode = !state.debugMode;
         if (state.debugMode) {
             dom.debugInfo.classList.add("show");
-            debugLog("调试模式已启用");
+            debugLog("偵錯模式已啟用");
         } else {
             dom.debugInfo.classList.remove("show");
         }
     }
 });
 
-// 新增：切换搜索模式
+// 新增：切換搜尋模式
 function toggleSearchMode(enable) {
     state.isSearchMode = enable;
     if (enable) {
         dom.container.classList.add("search-mode");
-        debugLog("进入搜索模式");
+        debugLog("進入搜尋模式");
     } else {
         dom.container.classList.remove("search-mode");
-        debugLog("退出搜索模式");
+        debugLog("退出搜尋模式");
     }
 }
 
-// 新增：显示搜索结果
+// 新增：顯示搜尋結果
 function showSearchResults(options = {}) {
     const { restore = false } = options;
     toggleSearchMode(true);
@@ -2001,7 +2001,7 @@ function showSearchResults(options = {}) {
     }
 }
 
-// 新增：隐藏搜索结果 - 优化立即收起
+// 新增：隱藏搜尋結果 - 優化立即收起
 function hideSearchResults() {
     toggleSearchMode(false);
     if (state.sourceMenuOpen) {
@@ -2010,7 +2010,7 @@ function hideSearchResults() {
     if (state.qualityMenuOpen) {
         schedulePlayerQualityMenuPositionUpdate();
     }
-    // 立即清空搜索结果内容
+    // 立即清空搜尋結果內容
     const container = dom.searchResultsList || dom.searchResults;
     if (container) {
         container.innerHTML = "";
@@ -2100,7 +2100,7 @@ function handleSearchInputFocus() {
             try {
                 dom.searchInput.select();
             } catch (error) {
-                console.warn("选择搜索文本失败", error);
+                console.warn("選擇搜尋文本失敗", error);
             }
         });
     }
@@ -2109,9 +2109,9 @@ function handleSearchInputFocus() {
 }
 
 const playModeTexts = {
-    "list": "列表循环",
-    "single": "单曲循环",
-    "random": "随机播放"
+    "list": "列表循環",
+    "single": "單曲循環",
+    "random": "隨機播放"
 };
 
 const playModeIcons = {
@@ -2154,7 +2154,7 @@ function updateShuffleButtonUI() {
     button.setAttribute("aria-pressed", isRandom ? "true" : "false");
     const iconClass = isRandom ? "shuffle-icon shuffle-icon--on" : "shuffle-icon shuffle-icon--off";
     button.innerHTML = `<i class="fas fa-shuffle ${iconClass}"></i>`;
-    const label = isRandom ? "关闭随机播放" : "开启随机播放";
+    const label = isRandom ? "關閉隨機播放" : "開啟隨機播放";
     button.title = label;
     button.setAttribute("aria-label", label);
 }
@@ -2201,13 +2201,13 @@ function setPlayMode(mode, { announce = true } = {}) {
     if (announce) {
         const modeText = playModeTexts[mode] || playModeTexts.list;
         showNotification(`播放模式: ${modeText}`);
-        debugLog(`播放模式切换为: ${mode} (列表: ${state.currentList})`);
+        debugLog(`播放模式切換為: ${mode} (列表: ${state.currentList})`);
     }
 
     return mode;
 }
 
-// 新增：播放模式切换
+// 新增：播放模式切換
 function togglePlayMode() {
     const modes = isMobileView ? ["list", "single", "random"] : ["list", "single"];
     const currentMode = getActivePlayMode();
@@ -2248,7 +2248,7 @@ function updatePlayPauseButton() {
     if (!dom.playPauseBtn) return;
     const isPlaying = !dom.audioPlayer.paused && !dom.audioPlayer.ended;
     dom.playPauseBtn.innerHTML = `<i class="fas ${isPlaying ? "fa-pause" : "fa-play"}"></i>`;
-    dom.playPauseBtn.title = isPlaying ? "暂停" : "播放";
+    dom.playPauseBtn.title = isPlaying ? "暫停" : "播放";
     if (document.body) {
         document.body.classList.toggle("is-playing", isPlaying);
     }
@@ -2346,7 +2346,7 @@ function setAudioCurrentTime(time) {
     try {
         dom.audioPlayer.currentTime = clamped;
     } catch (error) {
-        console.warn("设置播放进度失败", error);
+        console.warn("設置播放進度失敗", error);
     }
     dom.progressBar.value = clamped;
     dom.currentTimeDisplay.textContent = formatTime(clamped);
@@ -2391,7 +2391,7 @@ async function togglePlayPause() {
                 : 0;
             await playPlaylistSong(targetIndex);
         } else {
-            showNotification("播放列表为空，请先添加歌曲", "error");
+            showNotification("播放列表為空，請先添加歌曲", "error");
         }
         return;
     }
@@ -2404,8 +2404,8 @@ async function togglePlayPause() {
                 preserveProgress: true,
             });
         } catch (error) {
-            console.error("恢复播放失败:", error);
-            showNotification("播放失败，请稍后重试", "error");
+            console.error("恢復播放失敗:", error);
+            showNotification("播放失敗，請稍後重試", "error");
         }
         return;
     }
@@ -2414,8 +2414,8 @@ async function togglePlayPause() {
         const playPromise = dom.audioPlayer.play();
         if (playPromise !== undefined) {
             playPromise.catch(error => {
-                console.error("播放失败:", error);
-                showNotification("播放失败，请检查网络连接", "error");
+                console.error("播放失敗:", error);
+                showNotification("播放失敗，請檢查網路連線", "error");
             });
         }
     } else {
@@ -2446,7 +2446,7 @@ function updateSourceLabel() {
     dom.sourceSelectLabel.textContent = option.label;
     dom.sourceSelectButton.dataset.source = option.value;
     dom.sourceSelectButton.setAttribute("aria-expanded", state.sourceMenuOpen ? "true" : "false");
-    dom.sourceSelectButton.setAttribute("aria-label", `当前音源：${option.label}，点击切换音源`);
+    dom.sourceSelectButton.setAttribute("aria-label", `當前音源：${option.label}，點擊切換音源`);
     dom.sourceSelectButton.setAttribute("title", `音源：${option.label}`);
 }
 
@@ -2609,12 +2609,12 @@ function updateQualityLabel() {
     const option = QUALITY_OPTIONS.find(item => item.value === state.playbackQuality) || QUALITY_OPTIONS[0];
     if (!option) return;
     dom.qualityLabel.textContent = option.label;
-    dom.qualityToggle.title = `音质: ${option.label} (${option.description})`;
+    dom.qualityToggle.title = `音質: ${option.label} (${option.description})`;
     if (dom.mobileQualityLabel) {
         dom.mobileQualityLabel.textContent = option.label;
     }
     if (dom.mobileQualityToggle) {
-        dom.mobileQualityToggle.title = `音质: ${option.label} (${option.description})`;
+        dom.mobileQualityToggle.title = `音質: ${option.label} (${option.description})`;
     }
 }
 
@@ -2810,13 +2810,13 @@ async function selectPlaybackQuality(quality) {
 
     const option = QUALITY_OPTIONS.find(item => item.value === normalized);
     if (option) {
-        showNotification(`音质已切换为 ${option.label} (${option.description})`);
+        showNotification(`音質已切換為 ${option.label} (${option.description})`);
     }
 
     if (state.currentSong) {
         const success = await reloadCurrentSong();
         if (!success) {
-            showNotification("切换音质失败，请稍后重试", "error");
+            showNotification("切換音質失敗，請稍後重試", "error");
         }
     }
 }
@@ -2837,7 +2837,7 @@ async function reloadCurrentSong() {
         }
         return true;
     } catch (error) {
-        console.error("切换音质失败:", error);
+        console.error("切換音質失敗:", error);
         return false;
     }
 }
@@ -2858,8 +2858,8 @@ async function restoreCurrentSongState() {
 }
 
 window.addEventListener("load", setupInteractions);
-// 仅在浏览器不支持 Media Session API 时监听 ended 事件，
-// 避免与媒体会话的结束回调重复触发自动播放。
+// 僅在瀏覽器不支援 Media Session API 時監聽 ended 事件，
+// 避免與媒體會話的結束回調重複觸發自動播放。
 if (!("mediaSession" in navigator)) {
     dom.audioPlayer.addEventListener("ended", autoPlayNext);
 }
@@ -3002,7 +3002,7 @@ function setupInteractions() {
                 event.stopPropagation();
                 const removed = removeFavoriteAtIndex(index);
                 if (removed) {
-                    showNotification("已从收藏列表移除", "success");
+                    showNotification("已從收藏列表移除", "success");
                 }
             }
         };
@@ -3060,7 +3060,7 @@ function setupInteractions() {
         }
         document.body.classList.toggle("dark-mode", isDark);
         dom.themeToggleButton.classList.toggle("is-dark", isDark);
-        const label = isDark ? "切换为浅色模式" : "切换为深色模式";
+        const label = isDark ? "切換為淺色模式" : "切換為深色模式";
         dom.themeToggleButton.setAttribute("aria-label", label);
         dom.themeToggleButton.setAttribute("title", label);
         applyDynamicGradient();
@@ -3289,7 +3289,7 @@ function setupInteractions() {
         });
     }
 
-    // 播放模式按钮事件
+    // 播放模式按鈕事件
     updatePlayModeUI();
     if (dom.playModeBtn) {
         dom.playModeBtn.addEventListener("click", togglePlayMode);
@@ -3298,7 +3298,7 @@ function setupInteractions() {
         dom.shuffleToggleBtn.addEventListener("click", toggleShuffleMode);
     }
 
-    // 搜索相关事件 - 修复搜索下拉框显示问题
+    // 搜尋相關事件 - 修復搜尋下拉框顯示問題
     dom.searchBtn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -3307,7 +3307,7 @@ function setupInteractions() {
     });
 
     dom.searchInput.addEventListener("focus", () => {
-        debugLog("搜索输入框获得焦点，尝试恢复上次搜索结果");
+        debugLog("搜尋輸入框獲得焦點，嘗試恢復上次搜尋結果");
         handleSearchInputFocus();
     });
 
@@ -3315,18 +3315,18 @@ function setupInteractions() {
         if (e.key === "Enter") {
             e.preventDefault();
             e.stopPropagation();
-            debugLog("搜索输入框回车键被按下");
+            debugLog("搜尋輸入框回車鍵被按下");
             performSearch();
         }
     });
 
     updateImportSelectedButton();
 
-    // 修复：点击搜索区域外部时隐藏搜索结果
+    // 修復：點擊搜尋區域外部時隱藏搜尋結果
     document.addEventListener("click", (e) => {
         const searchArea = document.querySelector(".search-area");
         if (searchArea && !searchArea.contains(e.target) && state.isSearchMode) {
-            debugLog("点击搜索区域外部，隐藏搜索结果");
+            debugLog("點擊搜尋區域外部，隱藏搜尋結果");
             hideSearchResults();
         }
     });
@@ -3340,7 +3340,7 @@ function setupInteractions() {
         }
     });
 
-    // 搜索结果相关事件处理 - 修复加载更多按钮点击问题
+    // 搜尋結果相關事件處理 - 修復載入更多按鈕點擊問題
     document.addEventListener("click", (e) => {
         const qualityMenus = document.querySelectorAll(".quality-menu");
         qualityMenus.forEach(menu => {
@@ -3371,11 +3371,11 @@ function setupInteractions() {
         }
     });
 
-    // 修复：使用更强健的事件委托处理加载更多按钮点击
+    // 修復：使用更強健的事件委託處理載入更多按鈕點擊
     dom.searchResults.addEventListener("click", (e) => {
         debugLog(`点击事件触发: ${e.target.tagName} ${e.target.className} ${e.target.id}`);
 
-        // 检查多种可能的目标元素
+        // 檢查多種可能的目標元素
         const loadMoreBtn = e.target.closest(".load-more-btn") || 
                            e.target.closest("#loadMoreBtn") ||
                            (e.target.id === "loadMoreBtn" ? e.target : null) ||
@@ -3389,17 +3389,17 @@ function setupInteractions() {
         }
     });
 
-    // 额外的直接事件监听器作为备用
+    // 額外的直接事件監聽器作為備用
     document.addEventListener("click", (e) => {
         if (e.target.id === "loadMoreBtn" || e.target.closest("#loadMoreBtn")) {
-            debugLog("备用事件监听器触发");
+            debugLog("備用事件監聽器觸發");
             e.preventDefault();
             e.stopPropagation();
             loadMoreResults();
         }
     });
 
-    // 新增：歌词滚动监听
+    // 新增：歌詞滾動監聽
     const attachLyricScrollHandler = (scrollElement, getCurrentElement) => {
         if (!scrollElement) {
             return;
@@ -3439,7 +3439,7 @@ function setupInteractions() {
             state.currentSong = restoredSong;
             updatePlaylistHighlight();
             updateCurrentSongInfo(restoredSong).catch(error => {
-                console.error("恢复歌曲信息失败:", error);
+                console.error("恢復歌曲資訊失敗:", error);
             });
         }
 
@@ -3462,7 +3462,7 @@ function setupInteractions() {
     }
 }
 
-// 修复：更新当前歌曲信息和封面
+// 修復：更新當前歌曲資訊和封面
 function updateCurrentSongInfo(song, options = {}) {
     const { loadArtwork = true } = options;
     state.currentSong = song;
@@ -3470,8 +3470,8 @@ function updateCurrentSongInfo(song, options = {}) {
     updateMobileToolbarTitle();
     updateFavoriteIcons();
 
-    // 修复艺人名称显示问题 - 使用正确的字段名
-    const artistText = Array.isArray(song.artist) ? song.artist.join(', ') : (song.artist || '未知艺术家');
+    // 修復藝人名稱顯示問題 - 使用正確的欄位名
+    const artistText = Array.isArray(song.artist) ? song.artist.join(', ') : (song.artist || '未知藝術家');
     dom.currentSongArtist.textContent = artistText;
 
     cancelDeferredPaletteUpdate();
@@ -3483,7 +3483,7 @@ function updateCurrentSongInfo(song, options = {}) {
         return Promise.resolve();
     }
 
-    // 加载封面
+    // 載入封面
     if (song.pic_id) {
         cancelDeferredPaletteUpdate();
         dom.albumCover.classList.add("loading");
@@ -3492,7 +3492,7 @@ function updateCurrentSongInfo(song, options = {}) {
         API.fetchJson(picUrl)
             .then(data => {
                 if (!data || !data.url) {
-                    throw new Error("封面地址缺失");
+                    throw new Error("封面位址缺失");
                 }
 
                 const img = new Image();
@@ -3524,7 +3524,7 @@ function updateCurrentSongInfo(song, options = {}) {
                 img.src = imageUrl;
             })
             .catch(error => {
-                console.error("加载封面失败:", error);
+                console.error("載入封面失敗:", error);
                 if (state.currentSong === song) {
                     cancelDeferredPaletteUpdate();
                     showAlbumCoverPlaceholder();
@@ -3538,11 +3538,11 @@ function updateCurrentSongInfo(song, options = {}) {
     return Promise.resolve();
 }
 
-// 搜索功能 - 修复搜索下拉框显示问题
+// 搜尋功能 - 修復搜尋下拉框顯示問題
 async function performSearch(isLiveSearch = false) {
     const query = dom.searchInput.value.trim();
     if (!query) {
-        showNotification("请输入搜索关键词", "error");
+        showNotification("請輸入搜尋關鍵詞", "error");
         return;
     }
 
@@ -3556,7 +3556,7 @@ async function performSearch(isLiveSearch = false) {
     updateSourceLabel();
     buildSourceMenu();
 
-    // 重置搜索状态
+    // 重設搜尋狀態
     if (!isLiveSearch) {
         state.searchPage = 1;
         state.searchKeyword = query;
@@ -3569,24 +3569,24 @@ async function performSearch(isLiveSearch = false) {
         if (listContainer) {
             listContainer.innerHTML = "";
         }
-        debugLog(`开始新搜索: ${query}, 来源: ${source}`);
+        debugLog(`開始新搜尋: ${query}, 來源: ${source}`);
     } else {
         state.searchKeyword = query;
         state.searchSource = source;
     }
 
     try {
-        // 禁用搜索按钮并显示加载状态
+        // 禁用搜尋按鈕並顯示加載狀態
         dom.searchBtn.disabled = true;
-        dom.searchBtn.innerHTML = '<span class="loader"></span><span>搜索中...</span>';
+        dom.searchBtn.innerHTML = '<span class="loader"></span><span>搜尋中...</span>';
 
-        // 立即显示搜索模式
+        // 立即顯示搜尋模式
         showSearchResults();
-        debugLog("已切换到搜索模式");
+        debugLog("已切換到搜尋模式");
 
-        // 执行搜索
+        // 執行搜尋
         const results = await API.search(query, source, 20, state.searchPage);
-        debugLog(`API返回结果数量: ${results.length}`);
+        debugLog(`API回傳結果數量: ${results.length}`);
 
         if (state.searchPage === 1) {
             state.searchResults = results;
@@ -3596,50 +3596,50 @@ async function performSearch(isLiveSearch = false) {
 
         state.hasMoreResults = results.length === 20;
 
-        // 显示搜索结果
+        // 顯示搜尋結果
         displaySearchResults(results, {
             reset: state.searchPage === 1,
             totalCount: state.searchResults.length,
         });
         persistLastSearchState();
-        debugLog(`搜索完成: 总共显示 ${state.searchResults.length} 个结果`);
+        debugLog(`搜索完成: 總共顯示 ${state.searchResults.length} 個結果`);
 
-        // 如果没有结果，显示提示
+        // 如果沒有結果，顯示提示
         if (state.searchResults.length === 0) {
-            showNotification("未找到相关歌曲", "error");
+            showNotification("未找到相關歌曲", "error");
         }
 
     } catch (error) {
-        console.error("搜索失败:", error);
-        showNotification("搜索失败，请稍后重试", "error");
+        console.error("搜尋失敗:", error);
+        showNotification("搜尋失敗，請稍後重試", "error");
         hideSearchResults();
-        debugLog(`搜索失败: ${error.message}`);
+        debugLog(`搜尋失敗: ${error.message}`);
     } finally {
-        // 恢复搜索按钮状态
+        // 恢復搜尋按鈕狀態
         dom.searchBtn.disabled = false;
-        dom.searchBtn.innerHTML = '<i class="fas fa-search"></i><span>搜索</span>';
+        dom.searchBtn.innerHTML = '<i class="fas fa-search"></i><span>搜尋</span>';
     }
 }
 
-// 加载更多搜索结果
+// 載入更多搜尋結果
 async function loadMoreResults() {
     if (!state.hasMoreResults || !state.searchKeyword) {
-        debugLog("没有更多结果或搜索关键词为空");
+        debugLog("沒有更多結果或搜尋關鍵詞為空");
         return;
     }
 
     const loadMoreBtn = document.getElementById("loadMoreBtn");
     if (!loadMoreBtn) {
-        debugLog("找不到加载更多按钮");
+        debugLog("找不到載入更多按鈕");
         return;
     }
 
     try {
         loadMoreBtn.disabled = true;
-        loadMoreBtn.innerHTML = '<span class="loader"></span><span>加载中...</span>';
+        loadMoreBtn.innerHTML = '<span class="loader"></span><span>載入中...</span>';
 
         state.searchPage++;
-        debugLog(`加载第 ${state.searchPage} 页结果`);
+        debugLog(`載入第 ${state.searchPage} 頁結果`);
 
         const source = normalizeSource(state.searchSource);
         state.searchSource = source;
@@ -3653,20 +3653,20 @@ async function loadMoreResults() {
                 totalCount: state.searchResults.length,
             });
             persistLastSearchState();
-            debugLog(`加载完成: 新增 ${results.length} 个结果`);
+            debugLog(`載入完成: 新增 ${results.length} 個結果`);
         } else {
             state.hasMoreResults = false;
-            showNotification("没有更多结果了");
-            debugLog("没有更多结果");
+            showNotification("沒有更多結果了");
+            debugLog("没有更多結果");
         }
     } catch (error) {
-        console.error("加载更多失败:", error);
-        showNotification("加载失败，请稍后重试", "error");
+        console.error("載入更多失敗:", error);
+        showNotification("載入失敗，請稍後重試", "error");
         state.searchPage--; // 回退页码
     } finally {
         if (loadMoreBtn) {
             loadMoreBtn.disabled = false;
-            loadMoreBtn.innerHTML = "<i class=\"fas fa-plus\"></i><span>加载更多</span>";
+            loadMoreBtn.innerHTML = "<i class=\"fas fa-plus\"></i><span>載入更多</span>";
         }
     }
 }
@@ -3697,7 +3697,7 @@ function createSearchResultItem(song, index) {
     artist.className = "search-result-artist";
     const artistName = Array.isArray(song.artist)
         ? song.artist.join(', ')
-        : (song.artist || "未知艺术家");
+        : (song.artist || "未知藝術家");
     const albumText = song.album ? ` - ${song.album}` : "";
     artist.textContent = `${artistName}${albumText}`;
 
@@ -3731,7 +3731,7 @@ function createSearchResultItem(song, index) {
     const downloadButton = document.createElement("button");
     downloadButton.className = "action-btn download";
     downloadButton.type = "button";
-    downloadButton.title = "下载";
+    downloadButton.title = "下載";
     downloadButton.innerHTML = '<i class="fas fa-download"></i>';
     downloadButton.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -3742,10 +3742,10 @@ function createSearchResultItem(song, index) {
     qualityMenu.className = "quality-menu";
 
     const qualityOptions = [
-        { label: "标准音质", suffix: " (128k)", quality: "128" },
-        { label: "高音质", suffix: " (192k)", quality: "192" },
-        { label: "超高音质", suffix: " (320k)", quality: "320" },
-        { label: "无损音质", suffix: "", quality: "999" },
+        { label: "標準音質", suffix: " (128k)", quality: "128" },
+        { label: "高音質", suffix: " (192k)", quality: "192" },
+        { label: "超高音質", suffix: " (320k)", quality: "320" },
+        { label: "無損音質", suffix: "", quality: "999" },
     ];
 
     qualityOptions.forEach(option => {
@@ -3797,7 +3797,7 @@ function applySelectionStateToElement(item, isSelected) {
     const toggle = item.querySelector(".search-result-select");
     if (toggle) {
         toggle.setAttribute("aria-pressed", isSelected ? "true" : "false");
-        toggle.setAttribute("aria-label", isSelected ? "取消选择" : "选择歌曲");
+        toggle.setAttribute("aria-label", isSelected ? "取消選擇" : "選擇歌曲");
     }
 }
 
@@ -3828,9 +3828,9 @@ function updateImportSelectedButton() {
     if (countLabel) {
         countLabel.textContent = count > 0 ? `(${count})` : "";
     }
-    const label = count > 0 ? `导入已选 (${count})` : "导入已选";
+    const label = count > 0 ? `導入已選 (${count})` : "導入已選";
     button.title = label;
-    button.setAttribute("aria-label", count > 0 ? `导入已选 ${count} 首歌曲` : "导入已选");
+    button.setAttribute("aria-label", count > 0 ? `導入已選 ${count} 首歌曲` : "導入已選");
 }
 
 function toggleSearchResultSelection(index) {
@@ -3915,7 +3915,7 @@ function importSelectedSearchResults(target = "playlist") {
 
     if (songsToAdd.length === 0) {
         resetSelectedSearchResults();
-        showNotification("未找到可导入的歌曲", "warning");
+        showNotification("未找到可導入的歌曲", "warning");
         return;
     }
 
@@ -3953,10 +3953,10 @@ function importSelectedSearchResults(target = "playlist") {
             saveFavoriteState();
             renderFavorites();
             const duplicateHint = duplicates > 0 ? `，${duplicates} 首已存在` : "";
-            showNotification(`成功导入 ${added} 首收藏歌曲${duplicateHint}`, "success");
+            showNotification(`成功導入 ${added} 首收藏歌曲${duplicateHint}`, "success");
         } else {
             updateFavoriteActionStates();
-            showNotification("选中的歌曲已在收藏列表中", "warning");
+            showNotification("選中的歌曲已在收藏列表中", "warning");
         }
         updateFavoriteIcons();
         return;
@@ -3991,10 +3991,10 @@ function importSelectedSearchResults(target = "playlist") {
     if (added > 0) {
         renderPlaylist();
         const duplicateHint = duplicates > 0 ? `，${duplicates} 首已存在` : "";
-        showNotification(`成功导入 ${added} 首歌曲${duplicateHint}`, "success");
+        showNotification(`成功導入 ${added} 首歌曲${duplicateHint}`, "success");
     } else {
         updatePlaylistActionStates();
-        showNotification("选中的歌曲已在播放列表中", "warning");
+        showNotification("選中的歌曲已在播放列表中", "warning");
     }
     updateFavoriteIcons();
 }
@@ -4004,7 +4004,7 @@ function createLoadMoreButton() {
     button.id = "loadMoreBtn";
     button.className = "load-more-btn";
     button.type = "button";
-    button.innerHTML = '<i class="fas fa-plus"></i><span>加载更多</span>';
+    button.innerHTML = '<i class="fas fa-plus"></i><span>載入更多</span>';
     button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -4036,9 +4036,9 @@ function displaySearchResults(newItems, options = {}) {
     const itemsToAppend = Array.isArray(newItems) ? newItems : [];
 
     if (itemsToAppend.length === 0 && state.renderedSearchCount === 0 && totalCount === 0) {
-        container.innerHTML = "<div style=\"text-align: center; color: var(--text-secondary-color); padding: 20px;\">未找到相关歌曲</div>";
+        container.innerHTML = "<div style=\"text-align: center; color: var(--text-secondary-color); padding: 20px;\">未找到相關歌曲</div>";
         state.renderedSearchCount = 0;
-        debugLog("显示搜索结果: 0 个结果, 无可用数据");
+        debugLog("顯示搜索結果: 0 個結果, 無可用數據");
         return;
     }
 
@@ -4058,21 +4058,21 @@ function displaySearchResults(newItems, options = {}) {
 
     const appendedCount = itemsToAppend.length;
     const totalRendered = state.renderedSearchCount;
-    debugLog(`显示搜索结果: 新增 ${appendedCount} 个结果, 总计 ${totalRendered} 个, 加载更多按钮: ${state.hasMoreResults ? "显示" : "隐藏"}`);
+    debugLog(`顯示搜尋結果: 新增 ${appendedCount} 個結果, 总计 ${totalRendered} 個, 載入更多按鈕: ${state.hasMoreResults ? "顯示" : "隱藏"}`);
     updateFavoriteIcons();
 }
 
-// 显示质量选择菜单
+// 顯示品質選擇選單
 function showQualityMenu(event, index, type) {
     event.stopPropagation();
 
-    // 移除现有的质量菜单
+    // 刪除現有的品質選單
     const existingMenu = document.querySelector(".dynamic-quality-menu");
     if (existingMenu) {
         existingMenu.remove();
     }
 
-    // 创建新的质量菜单
+    // 創建新的品質選單
     const menu = document.createElement("div");
     menu.className = "dynamic-quality-menu";
     menu.innerHTML = `
@@ -4082,7 +4082,7 @@ function showQualityMenu(event, index, type) {
         <div class="quality-option" onclick="downloadWithQuality(event, ${index}, '${type}', '999')">无损音质</div>
     `;
 
-    // 设置菜单位置
+    // 設定選單位置
     const button = event.target.closest("button");
     const rect = button.getBoundingClientRect();
     menu.style.position = "fixed";
@@ -4093,7 +4093,7 @@ function showQualityMenu(event, index, type) {
     // 添加到body
     document.body.appendChild(menu);
 
-    // 点击其他地方关闭菜单
+    // 點擊其他地方關閉選單
     setTimeout(() => {
         document.addEventListener("click", function closeMenu(e) {
             if (!menu.contains(e.target)) {
@@ -4104,7 +4104,7 @@ function showQualityMenu(event, index, type) {
     }, 0);
 }
 
-// 根据质量下载 - 支持播放列表模式
+// 根據品質下載 - 支援播放清單模式
 async function downloadWithQuality(event, index, type, quality) {
     event.stopPropagation();
     let song;
@@ -4121,14 +4121,14 @@ async function downloadWithQuality(event, index, type, quality) {
 
     if (!song) return;
 
-    // 关闭菜单并移除 menu-active 类
+    // 關閉選單並移除 menu-active 類
     document.querySelectorAll(".quality-menu").forEach(menu => {
         menu.classList.remove("show");
         const parentItem = menu.closest(".search-result-item");
         if (parentItem) parentItem.classList.remove("menu-active");
     });
 
-    // 关闭动态质量菜单
+    // 關閉動態品質選單
     const dynamicMenu = document.querySelector(".dynamic-quality-menu");
     if (dynamicMenu) {
         dynamicMenu.remove();
@@ -4137,25 +4137,25 @@ async function downloadWithQuality(event, index, type, quality) {
     try {
         await downloadSong(song, quality);
     } catch (error) {
-        console.error("下载失败:", error);
-        showNotification("下载失败，请稍后重试", "error");
+        console.error("下載失敗:", error);
+        showNotification("下載失敗，請稍後重試", "error");
     }
 }
 
-// 修复：播放搜索结果 - 添加到播放列表而不是清空
+// 修復：播放搜尋結果 - 加入播放清單而非清空
 async function playSearchResult(index) {
     const song = state.searchResults[index];
     if (!song) return;
 
     try {
-        // 立即隐藏搜索结果，显示播放界面
+        // 立即隱藏搜索結果，顯示播放界面
         hideSearchResults();
         dom.searchInput.value = "";
         if (isMobileView) {
             closeMobileSearch();
         }
 
-        // 检查歌曲是否已在播放列表中
+        // 檢查歌曲是否已存在於播放清單中
         const existingIndex = state.playlistSongs.findIndex(s => s.id === song.id && s.source === song.source);
 
         if (existingIndex !== -1) {
@@ -4171,7 +4171,7 @@ async function playSearchResult(index) {
             state.currentList = "playlist";
         }
 
-        // 更新播放列表显示
+        // 更新播放列表顯示
         renderPlaylist();
 
         // 播放歌曲
@@ -4181,8 +4181,8 @@ async function playSearchResult(index) {
         showNotification(`正在播放: ${song.name}`);
 
     } catch (error) {
-        console.error("播放失败:", error);
-        showNotification("播放失败，请稍后重试", "error");
+        console.error("播放失敗:", error);
+        showNotification("播放失敗，請稍後重試", "error");
     }
 }
 
@@ -4352,7 +4352,7 @@ function updatePlaylistActionStates() {
 
 function exportPlaylist() {
     if (!Array.isArray(state.playlistSongs) || state.playlistSongs.length === 0) {
-        showNotification("播放列表为空，无法导出", "warning");
+        showNotification("播放清單為空，無法導出", "warning");
         return;
     }
 
@@ -4378,10 +4378,10 @@ function exportPlaylist() {
         anchor.click();
         document.body.removeChild(anchor);
         URL.revokeObjectURL(url);
-        showNotification(`已导出 ${state.playlistSongs.length} 首歌曲`, "success");
+        showNotification(`已導出 ${state.playlistSongs.length} 首歌曲`, "success");
     } catch (error) {
-        console.error("导出播放列表失败:", error);
-        showNotification("导出失败，请稍后重试", "error");
+        console.error("導出播放清單失敗:", error);
+        showNotification("導出失敗，請稍後重試", "error");
     }
 }
 
@@ -4457,13 +4457,13 @@ function handleImportPlaylistChange(event) {
             const { added, duplicates } = handleImportedPlaylistItems(items);
             if (added > 0) {
                 const duplicateHint = duplicates > 0 ? `，${duplicates} 首已存在` : "";
-                showNotification(`成功导入 ${added} 首歌曲${duplicateHint}`, "success");
+                showNotification(`成功導入 ${added} 首歌曲${duplicateHint}`, "success");
             } else {
-                showNotification("文件中的歌曲已在播放列表中", "warning");
+                showNotification("文件中的歌曲已在播放清單中", "warning");
             }
         } catch (error) {
-            console.error("导入播放列表失败:", error);
-            showNotification("导入失败，请确认文件格式", "error");
+            console.error("導入播放清單失敗:", error);
+            showNotification("導入失敗，請確認文件格式", "error");
         } finally {
             if (input) {
                 input.value = "";
@@ -4472,8 +4472,8 @@ function handleImportPlaylistChange(event) {
     };
 
     reader.onerror = () => {
-        console.error("读取播放列表文件失败:", reader.error);
-        showNotification("无法读取播放列表文件", "error");
+        console.error("讀取播放列表文件失敗:", reader.error);
+        showNotification("無法讀取播放清單文件", "error");
         if (input) {
             input.value = "";
         }
@@ -4482,7 +4482,7 @@ function handleImportPlaylistChange(event) {
     reader.readAsText(file, "utf-8");
 }
 
-// 新增：渲染统一播放列表
+// 新增：渲染統一播放清單
 function renderPlaylist() {
     if (!dom.playlistItems) return;
 
@@ -4501,7 +4501,7 @@ function renderPlaylist() {
     const playlistHtml = state.playlistSongs.map((song, index) => {
         const artistValue = Array.isArray(song.artist)
             ? song.artist.join(", ")
-            : (song.artist || "未知艺术家");
+            : (song.artist || "未知藝術家");
         const songKey = getSongKey(song) || `playlist-${index}`;
         return `
         <div class="playlist-item" data-index="${index}" role="button" tabindex="0" aria-label="播放 ${song.name}" data-favorite-key="${songKey}">
@@ -4509,10 +4509,10 @@ function renderPlaylist() {
             <button class="playlist-item-favorite action-btn favorite favorite-toggle" type="button" data-playlist-action="favorite" data-index="${index}" data-favorite-key="${songKey}" title="收藏" aria-label="收藏">
                 <i class="fa-regular fa-heart"></i>
             </button>
-            <button class="playlist-item-download" type="button" data-playlist-action="download" data-index="${index}" title="下载">
+            <button class="playlist-item-download" type="button" data-playlist-action="download" data-index="${index}" title="下載">
                 <i class="fas fa-download"></i>
             </button>
-            <button class="playlist-item-remove" type="button" data-playlist-action="remove" data-index="${index}" title="从播放列表移除">
+            <button class="playlist-item-remove" type="button" data-playlist-action="remove" data-index="${index}" title="從播放列表移除">
                 <i class="fas fa-times"></i>
             </button>
         </div>`;
@@ -4579,7 +4579,7 @@ function updateFavoriteIcons() {
         dom.currentFavoriteToggle.setAttribute('aria-disabled', currentSong ? 'false' : 'true');
         dom.currentFavoriteToggle.classList.toggle('is-active', Boolean(isActive));
         dom.currentFavoriteToggle.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        const label = isActive ? '取消收藏当前歌曲' : '收藏当前歌曲';
+        const label = isActive ? '取消收藏當前歌曲' : '收藏當前歌曲';
         dom.currentFavoriteToggle.setAttribute('aria-label', label);
         dom.currentFavoriteToggle.setAttribute('title', label);
         const icon = dom.currentFavoriteToggle.querySelector('i');
@@ -4632,7 +4632,7 @@ function switchLibraryTab(target) {
     closeImportSelectedMenu();
 }
 
-// 新增：从播放列表移除歌曲
+// 新增：從播放列表移除歌曲
 function removeFromPlaylist(index) {
     if (index < 0 || index >= state.playlistSongs.length) return;
 
@@ -4652,9 +4652,9 @@ function removeFromPlaylist(index) {
             dom.currentTimeDisplay.textContent = "00:00";
             dom.durationDisplay.textContent = "00:00";
             updateProgressBarBackground(0, 1);
-            dom.currentSongTitle.textContent = "选择一首歌曲开始播放";
+            dom.currentSongTitle.textContent = "選擇一首歌曲開始播放";
             updateMobileToolbarTitle();
-            dom.currentSongArtist.textContent = "未知艺术家";
+            dom.currentSongArtist.textContent = "未知藝術家";
             showAlbumCoverPlaceholder();
             clearLyricsContent();
             if (dom.lyrics) {
@@ -4696,7 +4696,7 @@ function removeFromPlaylist(index) {
 
     updatePlaylistActionStates();
     savePlayerState();
-    showNotification("已从播放列表移除", "success");
+    showNotification("已從播放清單移除", "success");
     clearLyricsIfLibraryEmpty();
 }
 
@@ -4763,19 +4763,19 @@ function renderFavorites() {
     const favoritesHtml = favorites.map((song, index) => {
         const artistValue = Array.isArray(song.artist)
             ? song.artist.join(", ")
-            : (song.artist || "未知艺术家");
+            : (song.artist || "未知藝術家");
         const isCurrent = state.currentList === "favorite" && index === state.currentFavoriteIndex;
         const songKey = getSongKey(song) || `favorite-${index}`;
         return `
         <div class="playlist-item${isCurrent ? " current" : ""}" data-index="${index}" role="button" tabindex="0" aria-label="播放 ${song.name}" data-favorite-key="${songKey}">
             ${song.name} - ${artistValue}
-            <button class="favorite-item-action favorite-item-action--add" type="button" data-favorite-action="add" data-index="${index}" title="添加到播放列表" aria-label="添加到播放列表">
+            <button class="favorite-item-action favorite-item-action--add" type="button" data-favorite-action="add" data-index="${index}" title="加入播放清單" aria-label="加入播放清單">
                 <i class="fas fa-plus"></i>
             </button>
-            <button class="favorite-item-action favorite-item-action--download" type="button" data-favorite-action="download" data-index="${index}" title="下载" aria-label="下载">
+            <button class="favorite-item-action favorite-item-action--download" type="button" data-favorite-action="download" data-index="${index}" title="下載" aria-label="下載">
                 <i class="fas fa-download"></i>
             </button>
-            <button class="favorite-item-action favorite-item-action--remove" type="button" data-favorite-action="remove" data-index="${index}" title="从收藏列表移除" aria-label="从收藏列表移除">
+            <button class="favorite-item-action favorite-item-action--remove" type="button" data-favorite-action="remove" data-index="${index}" title="從收藏清單移除" aria-label="從收藏清單移除">
                 <i class="fas fa-trash"></i>
             </button>
         </div>`;
@@ -4839,7 +4839,7 @@ function toggleFavorite(song) {
     const normalizedSong = sanitizeImportedSong(song) || { ...song };
     const key = getSongKey(normalizedSong);
     if (!key) {
-        showNotification("无法收藏该歌曲", "error");
+        showNotification("無法收藏該歌曲", "error");
         return;
     }
 
@@ -4848,12 +4848,12 @@ function toggleFavorite(song) {
 
     if (existingIndex >= 0) {
         removeFavoriteAtIndex(existingIndex);
-        showNotification("已从收藏列表移除", "success");
+        showNotification("已從收藏清單移除", "success");
     } else {
         favorites.push(normalizedSong);
         saveFavoriteState();
         renderFavorites();
-        showNotification("已添加到收藏列表", "success");
+        showNotification("已加入收藏清單", "success");
     }
 }
 
@@ -4877,15 +4877,15 @@ async function playFavoriteSong(index) {
             closeMobilePanel();
         }
     } catch (error) {
-        console.error("播放收藏歌曲失败:", error);
-        showNotification("播放收藏歌曲失败", "error");
+        console.error("播放收藏歌曲失敗:", error);
+        showNotification("播放收藏歌曲失敗", "error");
     }
 }
 
 function addAllFavoritesToPlaylist() {
     const favorites = ensureFavoriteSongsArray();
     if (favorites.length === 0) {
-        showNotification("收藏列表为空", "warning");
+        showNotification("收藏列表為空", "warning");
         return;
     }
 
@@ -4918,21 +4918,21 @@ function addAllFavoritesToPlaylist() {
     if (added > 0) {
         renderPlaylist();
         const duplicateHint = duplicates > 0 ? `，${duplicates} 首已存在` : "";
-        showNotification(`已添加 ${added} 首收藏歌曲到播放列表${duplicateHint}`, "success");
+        showNotification(`已加入 ${added} 首收藏歌曲至播放清單${duplicateHint}`, "success");
     } else {
         updatePlaylistActionStates();
-        showNotification("收藏歌曲均已在播放列表中", "warning");
+        showNotification("收藏歌曲均已在播放清單中", "warning");
     }
 }
 
 function clearFavorites() {
     const favorites = ensureFavoriteSongsArray();
     if (favorites.length === 0) {
-        showNotification("收藏列表为空", "warning");
+        showNotification("收藏清單為空", "warning");
         return;
     }
 
-    if (!window.confirm("确定清空收藏列表吗？")) {
+    if (!window.confirm("確定清空收藏清單嗎？？")) {
         return;
     }
 
@@ -4949,14 +4949,14 @@ function clearFavorites() {
     renderFavorites();
     updateFavoriteIcons();
     updatePlayModeUI();
-    showNotification("收藏列表已清空", "success");
+    showNotification("收藏清單已清空", "success");
     clearLyricsIfLibraryEmpty();
 }
 
 function exportFavorites() {
     const favorites = ensureFavoriteSongsArray();
     if (favorites.length === 0) {
-        showNotification("收藏列表为空，无法导出", "warning");
+        showNotification("收藏清單為空，無法導出", "warning");
         return;
     }
 
@@ -4983,10 +4983,10 @@ function exportFavorites() {
         anchor.click();
         document.body.removeChild(anchor);
         URL.revokeObjectURL(url);
-        showNotification(`已导出 ${favorites.length} 首收藏歌曲`, "success");
+        showNotification(`已導出 ${favorites.length} 首收藏歌曲`, "success");
     } catch (error) {
-        console.error("导出收藏列表失败:", error);
-        showNotification("导出收藏列表失败", "error");
+        console.error("導出收藏清單失敗:", error);
+        showNotification("導出收藏清單失敗", "error");
     }
 }
 
@@ -5056,7 +5056,7 @@ function handleImportFavoritesChange(event) {
 
             const meta = payload.meta || {};
             if (meta.version && Number(meta.version) > FAVORITE_EXPORT_VERSION) {
-                console.warn("收藏列表文件版本较新，尝试兼容导入");
+                console.warn("收藏清單文件版本較新，嘗試兼容導入");
             }
 
             const items = Array.isArray(payload.items)
@@ -5070,13 +5070,13 @@ function handleImportFavoritesChange(event) {
             const { added, duplicates } = handleImportedFavoriteItems(items);
             if (added > 0) {
                 const duplicateHint = duplicates > 0 ? `，${duplicates} 首已存在` : "";
-                showNotification(`成功导入 ${added} 首收藏歌曲${duplicateHint}`, "success");
+                showNotification(`成功導入 ${added} 首收藏歌曲${duplicateHint}`, "success");
             } else {
-                showNotification("文件中的歌曲已在收藏列表中", "warning");
+                showNotification("文件中的歌曲已加入收藏清單", "warning");
             }
         } catch (error) {
-            console.error("导入收藏列表失败:", error);
-            showNotification("导入收藏列表失败，请确认文件格式", "error");
+            console.error("導入收藏清單失敗:", error);
+            showNotification("導入收藏清單失敗，請確認文件格式", "error");
         } finally {
             if (input) {
                 input.value = "";
@@ -5085,8 +5085,8 @@ function handleImportFavoritesChange(event) {
     };
 
     reader.onerror = () => {
-        console.error("读取收藏列表文件失败:", reader.error);
-        showNotification("无法读取收藏列表文件", "error");
+        console.error("讀取收藏清單檔案失敗:", reader.error);
+        showNotification("無法讀取收藏清單檔案", "error");
         if (input) {
             input.value = "";
         }
@@ -5095,7 +5095,7 @@ function handleImportFavoritesChange(event) {
     reader.readAsText(file, "utf-8");
 }
 
-// 新增：清空播放列表
+// 新增：清空播放清單
 function clearPlaylist() {
     if (state.playlistSongs.length === 0) return;
 
@@ -5112,9 +5112,9 @@ function clearPlaylist() {
         dom.currentTimeDisplay.textContent = "00:00";
         dom.durationDisplay.textContent = "00:00";
         updateProgressBarBackground(0, 1);
-        dom.currentSongTitle.textContent = "选择一首歌曲开始播放";
+        dom.currentSongTitle.textContent = "選擇一首歌曲開始播放";
         updateMobileToolbarTitle();
-        dom.currentSongArtist.textContent = "未知艺术家";
+        dom.currentSongArtist.textContent = "未知藝術家";
         showAlbumCoverPlaceholder();
         clearLyricsContent();
         if (dom.lyrics) {
@@ -5134,11 +5134,11 @@ function clearPlaylist() {
     updatePlaylistActionStates();
 
     savePlayerState();
-    showNotification("播放列表已清空", "success");
+    showNotification("播放清單已清空", "success");
     clearLyricsIfLibraryEmpty();
 }
 
-// 新增：播放播放列表中的歌曲
+// 新增：播放播放清單中的歌曲
 async function playPlaylistSong(index) {
     if (index < 0 || index >= state.playlistSongs.length) return;
 
@@ -5155,12 +5155,12 @@ async function playPlaylistSong(index) {
             closeMobilePanel();
         }
     } catch (error) {
-        console.error("播放失败:", error);
-        showNotification("播放失败，请稍后重试", "error");
+        console.error("播放失敗:", error);
+        showNotification("播放失敗，請稍後重試", "error");
     }
 }
 
-// 新增：更新播放列表高亮
+// 新增：更新播放清單高亮
 function updatePlaylistHighlight() {
     if (!dom.playlistItems) return;
     const playlistItems = dom.playlistItems.querySelectorAll(".playlist-item");
@@ -5172,7 +5172,7 @@ function updatePlaylistHighlight() {
     });
 }
 
-// 修复：播放歌曲函数 - 支持统一播放列表
+// 修復：播放歌曲函數 - 支援統一播放清單
 function waitForAudioReady(player) {
     if (!player) return Promise.resolve();
     if (player.readyState >= 1) {
@@ -5189,7 +5189,7 @@ function waitForAudioReady(player) {
         };
         const onError = () => {
             cleanup();
-            reject(new Error('音频加载失败'));
+            reject(new Error('音訊載入失敗'));
         };
         player.addEventListener('loadedmetadata', onLoaded, { once: true });
         player.addEventListener('error', onError, { once: true });
@@ -5211,12 +5211,12 @@ async function playSong(song, options = {}) {
 
         const quality = state.playbackQuality || '320';
         const audioUrl = API.getSongUrl(song, quality);
-        debugLog(`获取音频URL: ${audioUrl}`);
+        debugLog(`取得音訊URL: ${audioUrl}`);
 
         const audioData = await API.fetchJson(audioUrl);
 
         if (!audioData || !audioData.url) {
-            throw new Error('无法获取音频播放地址');
+            throw new Error('無法取得音訊播放位址');
         }
 
         const originalAudioUrl = audioData.url;
@@ -5229,9 +5229,9 @@ async function playSong(song, options = {}) {
         const primaryAudioUrl = candidateAudioUrls[0] || originalAudioUrl;
 
         if (proxiedAudioUrl && proxiedAudioUrl !== originalAudioUrl) {
-            debugLog(`音频地址已通过代理转换为 HTTPS: ${proxiedAudioUrl}`);
+            debugLog(`音訊位址已透過代理轉換為 HTTPS: ${proxiedAudioUrl}`);
         } else if (preferredAudioUrl && preferredAudioUrl !== originalAudioUrl) {
-            debugLog(`音频地址由 HTTP 升级为 HTTPS: ${preferredAudioUrl}`);
+            debugLog(`音訊位址由 HTTP 升級為 HTTPS: ${preferredAudioUrl}`);
         }
 
         state.currentSong = song;
@@ -5276,21 +5276,21 @@ async function playSong(song, options = {}) {
                 break;
             } catch (error) {
                 lastAudioError = error;
-                console.warn('音频元数据加载异常', error);
+                console.warn('音訊元數據載入異常', error);
 
                 if (candidateUrl === primaryAudioUrl && candidateAudioUrls.length > 1) {
-                    debugLog('主音频地址加载失败，尝试使用备用地址');
+                    debugLog('主音訊位址載入失敗，嘗試使用備用位址');
                 }
             }
         }
 
         if (!selectedAudioUrl) {
-            throw lastAudioError || new Error('音频加载失败');
+            throw lastAudioError || new Error('音訊載入失敗');
         }
 
         if (usedFallbackAudio) {
-            debugLog(`已回退至备用音频地址: ${selectedAudioUrl}`);
-            showNotification('主音频加载失败，已切换到备用音源', 'warning');
+            debugLog(`已回退至備用音頻位址: ${selectedAudioUrl}`);
+            showNotification('主音訊載入失败，已切换到备用音源', 'warning');
         }
 
         state.currentAudioUrl = selectedAudioUrl;
@@ -5310,8 +5310,8 @@ async function playSong(song, options = {}) {
             playPromise = dom.audioPlayer.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.error('播放失败:', error);
-                    showNotification('播放失败，请检查网络连接', 'error');
+                    console.error('播放失敗:', error);
+                    showNotification('播放失敗，請檢查網路連線', 'error');
                 });
             } else {
                 playPromise = null;
@@ -5323,13 +5323,13 @@ async function playSong(song, options = {}) {
 
         scheduleDeferredSongAssets(song, playPromise);
 
-        debugLog(`开始播放: ${song.name} @${quality}`);
+        debugLog(`開始播放: ${song.name} @${quality}`);
 
         if (typeof window.__SOLARA_UPDATE_MEDIA_METADATA === 'function') {
             window.__SOLARA_UPDATE_MEDIA_METADATA();
         }
     } catch (error) {
-        console.error('播放歌曲失败:', error);
+        console.error('播放歌曲失敗:', error);
         throw error;
     } finally {
         savePlayerState();
@@ -5382,7 +5382,7 @@ function scheduleDeferredSongAssets(song, playPromise) {
     }
 }
 
-// 修复：自动播放下一首 - 支持播放模式
+// 修復：自動播放下一首 - 支援播放模式
 function autoPlayNext() {
     if (dom.audioPlayer && dom.audioPlayer.__solaraMediaSessionHandledEnded === 'skip') {
         dom.audioPlayer.__solaraMediaSessionHandledEnded = false;
@@ -5390,7 +5390,7 @@ function autoPlayNext() {
     }
     const mode = getActivePlayMode();
     if (mode === "single") {
-        // 单曲循环
+        // 單曲循環
         dom.audioPlayer.currentTime = 0;
         dom.audioPlayer.play();
         return;
@@ -5400,7 +5400,7 @@ function autoPlayNext() {
     updatePlayPauseButton();
 }
 
-// 修复：播放下一首 - 支持播放模式和统一播放列表
+// 修復：播放下一首 - 支援播放模式和統一播放清單
 function playNext() {
     if (state.currentList === "favorite") {
         const favorites = ensureFavoriteSongsArray();
@@ -5440,10 +5440,10 @@ function playNext() {
 
     const mode = state.playMode || "list";
     if (mode === "random") {
-        // 随机播放
+        // 隨機播放
         nextIndex = Math.floor(Math.random() * playlist.length);
     } else if (mode === "list") {
-        // 列表循环
+        // 列表循環
         nextIndex = (state.currentTrackIndex + 1) % playlist.length;
     } else if (mode === "single") {
         nextIndex = state.currentTrackIndex >= 0 ? state.currentTrackIndex : 0;
@@ -5464,7 +5464,7 @@ function playNext() {
     }
 }
 
-// 修复：播放上一首 - 支持播放模式和统一播放列表
+// 修复：播放上一首 - 支援播放模式與統一播放清單
 function playPrevious() {
     if (state.currentList === "favorite") {
         const favorites = ensureFavoriteSongsArray();
@@ -5503,10 +5503,10 @@ function playPrevious() {
 
     const mode = state.playMode || "list";
     if (mode === "random") {
-        // 随机播放
+        // 隨機播放
         prevIndex = Math.floor(Math.random() * playlist.length);
     } else if (mode === "list") {
-        // 列表循环
+        // 清單循環
         prevIndex = state.currentTrackIndex - 1;
         if (prevIndex < 0) prevIndex = playlist.length - 1;
     } else if (mode === "single") {
@@ -5528,7 +5528,7 @@ function playPrevious() {
     }
 }
 
-// 修复：在线音乐播放函数
+// 修復：線上音樂播放函數
 async function playOnlineSong(index) {
     const song = state.onlineSongs[index];
     if (!song) return;
@@ -5542,12 +5542,12 @@ async function playOnlineSong(index) {
         updateOnlineHighlight();
         updatePlayModeUI();
     } catch (error) {
-        console.error("播放失败:", error);
-        showNotification("播放失败，请稍后重试", "error");
+        console.error("播放失敗:", error);
+        showNotification("播放失敗，請稍後重試", "error");
     }
 }
 
-// 修复：更新在线音乐高亮
+// 修復：更新線上音樂高亮
 function updateOnlineHighlight() {
     if (!dom.playlistItems) return;
     const playlistItems = dom.playlistItems.querySelectorAll(".playlist-item");
@@ -5562,18 +5562,18 @@ function updateOnlineHighlight() {
 
 const EXPLORE_RADAR_GENRES = [
     "流行",
-    "摇滚",
-    "古典音乐",
-    "民谣",
-    "电子",
+    "搖滾",
+    "古典音樂",
+    "民謠",
+    "電子",
     "爵士",
-    "说唱",
-    "乡村",
-    "蓝调",
+    "說唱",
+    "鄉村",
+    "藍調",
     "R&B",
-    "金属",
+    "金屬",
     "嘻哈",
-    "轻音乐",
+    "輕音樂",
 ];
 
 function pickRandomExploreGenre() {
@@ -5594,7 +5594,7 @@ function pickRandomExploreSource() {
     return EXPLORE_RADAR_SOURCES[index];
 }
 
-// 探索雷达：通过代理后端随机搜歌并刷新播放列表
+// 探索雷達：透過代理後端隨機搜歌並刷新播放清單
 async function exploreOnlineMusic() {
     const desktopButton = dom.loadOnlineBtn;
     const mobileButton = dom.mobileExploreButton;
@@ -5626,15 +5626,15 @@ async function exploreOnlineMusic() {
         const results = await API.search(randomGenre, source, 30, 1);
 
         if (!Array.isArray(results) || results.length === 0) {
-            showNotification("探索雷达：未找到歌曲", "error");
-            debugLog(`探索雷达未找到歌曲，关键词：${randomGenre}，音源：${source}`);
+            showNotification("探索雷達：未找到歌曲", "error");
+            debugLog(`探索雷達未找到歌曲，關鍵詞：${randomGenre}，音源：${source}`);
             return;
         }
 
         const normalizedSongs = results.map((song) => ({
             id: song.id,
             name: song.name,
-            artist: Array.isArray(song.artist) ? song.artist.join(" / ") : (song.artist || "未知艺术家"),
+            artist: Array.isArray(song.artist) ? song.artist.join(" / ") : (song.artist || "未知藝術家"),
             album: song.album || "",
             source: song.source || source,
             lyric_id: song.lyric_id || song.id,
@@ -5660,8 +5660,8 @@ async function exploreOnlineMusic() {
         }
 
         if (appendedSongs.length === 0) {
-            showNotification("探索雷达：本次未找到新的歌曲，当前列表已包含这些曲目", "info");
-            debugLog(`探索雷达无新增歌曲，关键词：${randomGenre}`);
+            showNotification("探索雷達：本次未找到新的歌曲，目前清單已包含這些曲目", "info");
+            debugLog(`探索雷達無新增歌曲，關鍵字：${randomGenre}`);
             return;
         }
 
@@ -5673,8 +5673,8 @@ async function exploreOnlineMusic() {
         renderPlaylist();
         updatePlaylistHighlight();
 
-        showNotification(`探索雷达：新增${appendedSongs.length}首 ${randomGenre} 歌曲`);
-        debugLog(`探索雷达加载成功，关键词：${randomGenre}，音源：${source}，新增歌曲数：${appendedSongs.length}`);
+        showNotification(`探索雷達：新增${appendedSongs.length}首 ${randomGenre} 歌曲`);
+        debugLog(`探索雷達載入成功，關鍵字：${randomGenre}，音源：${source}，新增歌曲數：${appendedSongs.length}`);
 
         const shouldAutoplay = existingSongs.length === 0 && state.playlistSongs.length > 0;
         if (shouldAutoplay) {
@@ -5683,18 +5683,18 @@ async function exploreOnlineMusic() {
             savePlayerState();
         }
     } catch (error) {
-        console.error("探索雷达错误:", error);
-        showNotification("探索雷达获取失败，请稍后重试", "error");
+        console.error("探索雷達錯誤:", error);
+        showNotification("探索雷達取得失敗，請稍後重試", "error");
     } finally {
         setLoadingState(false);
     }
 }
 
-// 修复：加载歌词
+// 修復：載入歌詞
 async function loadLyrics(song) {
     try {
         const lyricUrl = API.getLyric(song);
-        debugLog(`获取歌词URL: ${lyricUrl}`);
+        debugLog(`取得歌詞URL: ${lyricUrl}`);
 
         const lyricData = await API.fetchJson(lyricUrl);
 
@@ -5702,27 +5702,27 @@ async function loadLyrics(song) {
             parseLyrics(lyricData.lyric);
             dom.lyrics.classList.remove("empty");
             dom.lyrics.dataset.placeholder = "default";
-            debugLog(`歌词加载成功: ${state.lyricsData.length} 行`);
+            debugLog(`歌詞載入成功: ${state.lyricsData.length} 行`);
         } else {
-            setLyricsContentHtml("<div>暂无歌词</div>");
+            setLyricsContentHtml("<div>暫無歌詞</div>");
             dom.lyrics.classList.add("empty");
             dom.lyrics.dataset.placeholder = "message";
             state.lyricsData = [];
             state.currentLyricLine = -1;
-            debugLog("歌词加载失败: 无歌词数据");
+            debugLog("歌词載入失敗: 無歌詞數據");
         }
     } catch (error) {
-        console.error("加载歌词失败:", error);
-        setLyricsContentHtml("<div>歌词加载失败</div>");
+        console.error("載入歌詞失敗:", error);
+        setLyricsContentHtml("<div>載入歌詞失敗</div>");
         dom.lyrics.classList.add("empty");
         dom.lyrics.dataset.placeholder = "message";
         state.lyricsData = [];
         state.currentLyricLine = -1;
-        debugLog(`歌词加载失败: ${error}`);
+        debugLog(`載入歌詞失敗: ${error}`);
     }
 }
 
-// 修复：解析歌词
+// 修復：解析歌詞
 function parseLyrics(lyricText) {
     const lines = lyricText.split('\n');
     const lyrics = [];
@@ -5744,7 +5744,7 @@ function parseLyrics(lyricText) {
 
     state.lyricsData = lyrics.sort((a, b) => a.time - b.time);
     displayLyrics();
-    debugLog(`解析歌词完成: ${state.lyricsData.length} 行`);
+    debugLog(`解析歌詞完成: ${state.lyricsData.length} 行`);
 }
 
 function setLyricsContentHtml(html) {
@@ -5785,7 +5785,7 @@ function clearLyricsIfLibraryEmpty() {
     }
 }
 
-// 修复：显示歌词
+// 修復：顯示歌詞
 function displayLyrics() {
     const lyricsHtml = state.lyricsData.map((lyric, index) =>
         `<div data-time="${lyric.time}" data-index="${index}">${lyric.text}</div>`
@@ -5799,7 +5799,7 @@ function displayLyrics() {
     }
 }
 
-// 修复：同步歌词
+// 修復：同步歌詞
 function syncLyrics() {
     if (state.lyricsData.length === 0) return;
 
@@ -5848,7 +5848,7 @@ function syncLyrics() {
     }
 }
 
-// 新增：滚动到当前歌词 - 修复居中显示问题
+// 新增：滾動到當前歌詞 - 修復居中顯示問題
 function scrollToCurrentLyric(element, containerOverride) {
     const container = containerOverride || dom.lyricsScroll || dom.lyrics;
     if (!container || !element) {
@@ -5858,11 +5858,11 @@ function scrollToCurrentLyric(element, containerOverride) {
     const elementRect = element.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
 
-    // 计算元素在容器内部的可视位置，避免受到 offsetParent 影响
+    // 計算元素在容器內部的可見位置，避免受到 offsetParent 影響
     const elementOffsetTop = elementRect.top - containerRect.top + container.scrollTop;
     const elementHeight = elementRect.height;
 
-    // 目标滚动位置：让当前歌词的中心与容器中心对齐
+    // 目標滾動位置：讓當前歌詞的中心與容器中心對齊
     const targetScrollTop = elementOffsetTop - (containerHeight / 2) + (elementHeight / 2);
 
     const maxScrollTop = container.scrollHeight - containerHeight;
@@ -5881,10 +5881,10 @@ function scrollToCurrentLyric(element, containerOverride) {
 
 }
 
-// 修复：下载歌曲
+// 修復：下載歌曲
 async function downloadSong(song, quality = "320") {
     try {
-        showNotification("正在准备下载...");
+        showNotification("正在準備下載...");
 
         const audioUrl = API.getSongUrl(song, quality);
         const audioData = await API.fetchJson(audioUrl);
@@ -5894,9 +5894,9 @@ async function downloadSong(song, quality = "320") {
             const preferredAudioUrl = preferHttpsUrl(audioData.url);
 
             if (proxiedAudioUrl !== audioData.url) {
-                debugLog(`下载链接已通过代理转换为 HTTPS: ${proxiedAudioUrl}`);
+                debugLog(`下載連結已通過代理轉換為 HTTPS: ${proxiedAudioUrl}`);
             } else if (preferredAudioUrl !== audioData.url) {
-                debugLog(`下载链接由 HTTP 升级为 HTTPS: ${preferredAudioUrl}`);
+                debugLog(`下載連結由 HTTP 升級為 HTTPS: ${preferredAudioUrl}`);
             }
 
             const downloadUrl = proxiedAudioUrl || preferredAudioUrl || audioData.url;
@@ -5914,7 +5914,7 @@ async function downloadSong(song, quality = "320") {
                         return match[1];
                     }
                 } catch (error) {
-                    console.warn("无法从下载链接中解析扩展名:", error);
+                    console.warn("無法從下載連結中解析擴展名:", error);
                 }
                 return preferredExtension;
             })();
@@ -5924,17 +5924,17 @@ async function downloadSong(song, quality = "320") {
             link.click();
             document.body.removeChild(link);
 
-            showNotification("下载已开始", "success");
+            showNotification("下載已開始", "success");
         } else {
-            throw new Error("无法获取下载地址");
+            throw new Error("無法取得下載位址");
         }
     } catch (error) {
-        console.error("下载失败:", error);
-        showNotification("下载失败，请稍后重试", "error");
+        console.error("下載失敗:", error);
+        showNotification("下載失敗，請稍後重試", "error");
     }
 }
 
-// 修复：移动端视图切换
+// 修正：行動端視圖切換
 function switchMobileView(view) {
     if (view === "playlist") {
         if (dom.showPlaylistBtn) {
@@ -5961,7 +5961,7 @@ function switchMobileView(view) {
     }
 }
 
-// 修复：显示通知
+// 修復：顯示通知
 function showNotification(message, type = "success") {
     const notification = dom.notification;
     notification.textContent = message;
